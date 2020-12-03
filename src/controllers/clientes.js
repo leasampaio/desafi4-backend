@@ -50,8 +50,7 @@ const listarEBuscar = async (ctx) => {
 	if (!ctx.state.idUsuario){
 		return response(ctx, 400, {mensagem: 'Por favor, faça login!'});
 	}
-	const { idUsuario } = ctx.state;
-	
+	const { idUsuario } = ctx.state;	
 	 if (clientesPorPagina && offset && busca) {
 		const listaClientes = await database.buscarClientes({
 			clientesPorPagina,
@@ -77,13 +76,9 @@ const listarEBuscar = async (ctx) => {
 		);
 	}
 };
-
-
-
-
-module.exports= {
+module.exports = {
  novoCliente,
  editarDadosCliente,
- buscarPorID
- 
+ buscarPorID,
+ listarEBuscar 
 }
