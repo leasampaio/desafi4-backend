@@ -1,11 +1,12 @@
 const response = require("./responses");
 const database = require("../repositories/usuarios");
+const Senha = require("../utils/password");
 
 
 
 const cadastrarUsuario = async (ctx) => {
-	const {email = null, nome = null } = ctx.request.body;
-	const { hash } = ctx.state;
+	const {email = null, nome = null, senha } = ctx.request.body;
+	
 	
 	if(!email || !nome ){
 		response(ctx, 400, {message: " Insira nome e e-mail!"});		
@@ -14,7 +15,7 @@ const cadastrarUsuario = async (ctx) => {
 	if(user){
 		return response(ctx, 400, {message: "Pessoa já está cadastrada!"} );
 	}
-	
+	const hash = await Senha.encrypt(senha);
 	const newUser = { 
 		nome, 
 		email, 
