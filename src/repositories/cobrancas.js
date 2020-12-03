@@ -1,15 +1,19 @@
 const database = require ('../utils/database');
 
  
-const criarCobrancas = async () => {
-	const query = `INSERT INTO cobrancas(idcliente, descricao, valor, vencimento, pagamento) VALUES(${1}, ${2}, ${3}, ${4}, ${5})`;
+const criarCobrancas = async (cobranca) => {
+	const query = `INSERT INTO cobrancas
+	(idcliente, descricao, valor, vencimento, pagamento, status) VALUES($1, $2, $3, $4, $5, $6)`;
 
 	const result = await database.query(query);
 
 	return result;
 };
-const listarCobrancas = async () => {
-	const query = `SELECT * FROM cobrancas;`
+const listarCobrancas = async (id) => {
+	const query = `SELECT * 
+	FROM cobrancas
+	inner join clientes
+	on ;`
 	const result = await database.query(query);
 	return result;
 }
