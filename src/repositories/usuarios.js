@@ -33,12 +33,14 @@ const obterUsuariosPorEmail = async (email = null) => {
 		return null;
 	}
 
-	const query = `SELECT * FROM users WHERE email = $1 `;
-	const result = await database.query({
-		text: query,
-		values: [email],
-	});
+	const query = {
+		text: `SELECT * 
+		FROM users 
+		WHERE email = '$1' `,
+		values: [email]
 
+	};
+	const result = await database.query(query);
 	return result.rows.shift();
 };
 

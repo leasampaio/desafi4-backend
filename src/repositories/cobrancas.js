@@ -17,7 +17,7 @@ const listarCobrancas = async (id) => {
 	const result = await database.query(query);
 	return result;
 }
-const pagarCobranca = async (cobranca, data) => {
+const pagar = async (cobranca, data) => {
 	const {id, idCliente, dataPagamento} =cobranca;
 	const query = {
 		text: `UPDATE cobrancas SET dataPagamento = $1,
@@ -33,4 +33,4 @@ const pagarCobranca = async (cobranca, data) => {
 
 
 
-module.exports ={ criarCobrancas, listarCobrancas, pagarCobranca };
+module.exports ={ criarCobrancas, listarCobrancas, pagar};

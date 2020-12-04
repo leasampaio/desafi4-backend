@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/leasampaio/desafi4-backend#readme",
   "dependencies": {
+    "axios": "^0.21.0",
     "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "jsonwebtoken": "^8.5.1",
@@ -25,5 +26,12 @@
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^10.0.0",
     "pg": "^8.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.2.0",
+    "prettier": "^2.2.1"
   }
 }
