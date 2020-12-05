@@ -1,7 +1,7 @@
 const database = require('../repositories/clientes');
 const response = require ('./responses');
 
-const novoCliente = async (ctx) => {
+const novo = async (ctx) => {
 	if (!ctx.state.idUsuario) {
 		return response(ctx,400, {mensagem : "Faça login para continuar!"});
 	}
@@ -16,10 +16,10 @@ const novoCliente = async (ctx) => {
 	}
 
 	const newClient = { nome, cpf, email, idUsuario};
-	const query = await database.adicionarClientes(newClient);
+	
 	return response (ctx, 201, { newClient });
 }
-const editarDadosCliente = async (ctx) => {
+const editarDados = async (ctx) => {
 	if (!ctx.state.idUsuario) {
 		return response(ctx,400,{mensagem:	'Faça login para editar um cliente.'});
 	}
@@ -33,7 +33,7 @@ const editarDadosCliente = async (ctx) => {
 
 	const IDs = { idCliente: id, idUsuario };
 	const editado = { idCliente: id, nome, email, cpf };
-	const verificar = await data.verificaClienteEstaAssociadoAoUsuario(IDs);
+	const verificar = await database.verificaClienteEstaAssociadoAoUsuario(IDs);
 
 	if (!verificar) {
 		return response(ctx,403, {mensagem: "Erro! O cliente não está ligado a esse usuário!"}	);
@@ -51,7 +51,7 @@ const listarEBuscar = async (ctx) => {
 		return response(ctx, 400, {mensagem: 'Por favor, faça login!'});
 	}
 	const { idUsuario } = ctx.state;	
-	 if (clientesPorPagina && offset && busca) {
+	if (clientesPorPagina && offset && busca) {
 		const listaClientes = await database.buscarClientes({
 			clientesPorPagina,
 			offset,
@@ -59,7 +59,7 @@ const listarEBuscar = async (ctx) => {
 			busca,
 		});
 
-		response(ctx, listaDeClientes);
+		response(ctx, listaClientes);
 	}
 	else if (clientesPorPagina && offset && !busca) {
 		const listaClientes = await database.listarClientes({
@@ -69,16 +69,12 @@ const listarEBuscar = async (ctx) => {
 		});
 		response(ctx, 200,  listaClientes);}
 		else {
-		return falhaRequisicao(
-			ctx,
-			'Insira corretamente todos os dados necessários',
-			400
-		);
+		return response(ctx, 400, {mensage: 'Insira todos os dados'});
 	}
 };
 module.exports = {
- novoCliente,
- editarDadosCliente,
+ novo,
+ editarDados,
  buscarPorID,
  listarEBuscar 
 }

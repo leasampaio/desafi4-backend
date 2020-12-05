@@ -11,8 +11,8 @@ const Cobrancas = require('./controllers/cobrancas');
 
 //router.post('/auth', Auth.autenticar);
 router.post('/usuarios',Password.encrypt, Usuarios.cadastrarUsuario);
-router.get('/clientes',Clientes.novoCliente);
-router.put('/clientes',Clientes.editarDadosCliente);
+router.get('/clientes',Clientes.novo);
+router.put('/clientes',Clientes.editarDados);
 router.post('/clientes', Clientes.listarEBuscar);
 router.get('/cobrancas', Cobrancas.criar);
 router.put('/cobrancas', Cobrancas.pagar);

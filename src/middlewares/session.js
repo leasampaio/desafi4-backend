@@ -7,7 +7,7 @@ const verify = async (ctx, next) => {
 	const { authorization = null } = ctx.headers;
 	if(authorization){
 
-		const [bearer, token] = authorization.split(' ');
+		const [ token] = authorization.split(' ');
 		if (token !== undefined) {
 
 		try{

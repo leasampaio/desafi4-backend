@@ -1,4 +1,3 @@
-const { query } = require('../utils/database');
 const database = require ('../utils/database');
 
 const adicionarClientes = async(cliente) => {
@@ -8,7 +7,7 @@ const adicionarClientes = async(cliente) => {
 			cpf,
 			email	
 		)VALUES ($1,$2, $3 )RETURNING *;`,
-		values: [cliente.nome, clente.cpf, cliente.email],
+		values: [cliente.nome, cliente.cpf, cliente.email],
 	};
 	const result = await database.query(query);
 	return result.rows.shift();
@@ -30,19 +29,19 @@ const editarCliente = async (cliente) => {
 };
 
 const listarClientes = async (usuario)=>{
-	query = {
+	const query = {
 		text: `SELECT * FROM clientes 
 		WHERE idusuario = $1
 		LIMIT 10
 		OFFSET $2`,
-		valueS: [usuario.idUsuario, cliente.offset]
+		valueS: [usuario.idUsuario, usuario.offset]
 	};
 	const result = await database.query(query);
 	return result.rows.shift();
 
 };
 const listarClientesPorID = async (id)=>{
-	query = {
+	const query = {
 		text: `SELECT * FROM clientes 
 		WHERE id = $1		`,
 		valueS: [id]
@@ -69,7 +68,7 @@ const retornarCliente = async (email) => {
 		text: `SELECT * FROM clientes WHERE email = $1`,
 		values: [email],
 	};
-	const result = await Database.query(query);
+	const result = await database.query(query);
 
 	return result.rows.shift();
 };
@@ -83,7 +82,7 @@ const verificaClienteEstaAssociadoAoUsuario = async (IDs) => {
 		values: [IDs.idCliente, IDs.idUsuario],
 	};
 
-	const result = await Database.query(query);
+	const result = await database.query(query);
 
 	return result.rows;
 };

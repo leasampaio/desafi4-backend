@@ -38,12 +38,12 @@ const criar = async (ctx) => {
 	const {	id = null,	descricao = null, valor = null,	vencimento = null} = ctx.request.body;
 	const idUsuario = ctx.state.idUsuario;
 	const {	nome, email, cpf, idusuario,	} = await Clientes.buscarPorID(id);
-	if (idUsuarioLogado !== idusuario) {
+	if (idUsuario !== idusuario) {
 		return response(ctx, 400, {mensagem: " Não é possível adicionar essa cbrança."})	;
 	}
 
 	const boleto = await Pagarme.criarBoleto({
-		idCliente: idDoCliente,
+		idCliente: id,
 		valor,
 		descricao,
 		vencimento,
@@ -56,7 +56,7 @@ const criar = async (ctx) => {
 		response(ctx,400, boleto);
 	} else {
 		await database.criarCobrancas({
-			idCliente: idDoCliente,
+			idCliente: id,
 			valor,
 			descricao,
 			vencimento,
@@ -66,7 +66,7 @@ const criar = async (ctx) => {
 
 		const cobranca = {
 			cobranca: {
-				idDoCliente,
+				id,
 				descricao,
 				valor,
 				vencimento,

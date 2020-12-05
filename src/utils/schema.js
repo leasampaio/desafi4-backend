@@ -34,7 +34,7 @@ const schema = {
 /**
  * Função de dropar tabelas no banco
  */
-const drop = async (nomeTabela) = {
+const drop = async (nomeTabela) => {
 	if(nomeTabela){
 		await database.query(`DROP TABLE ${nomeTabela}`);
 		console.log("Tabela Deletada");
@@ -57,7 +57,7 @@ const up = async (indiceTabela = null) => {
 	}
 	console.log('Migração Concluída');
 };
-
+module.exports = {drop, up }
 /**
  * Rode up() para subir todas as tabelas ou up(indiceDaTabela) para subir uma tabela específica
  * Rode drop("nomeDaTabela") para excluir uma das tabela armazenadas no banco 
